@@ -70,7 +70,6 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
 
 //你妈、八百多行、休想拦住我
 export function createPatchFunction (backend) {
-  console.log('backend',backend)
   let i, j
   const cbs = {}
 

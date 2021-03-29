@@ -10,6 +10,7 @@
         hahah
         {{ name }}
         <span id="span">我今年：{{ age }} 岁</span>
+        <button @click="change_name">修改名称</button>
         <!-- <div>学习vue</div> -->
         <!-- <component-test @aaa="aaa" :name="name"></component-test> -->
 
@@ -82,9 +83,9 @@
         name:'parant-demo',
         created(){
             console.log('created')
-            setTimeout( () =>{
-                this.name = '李四'
-            },5000)
+            // setTimeout( () =>{
+            //     this.name = '李四'
+            // },5000)
         },
         // mixins:[mixin],
         mounted(){
@@ -102,6 +103,10 @@
         methods:{
             aaa(){
                 console.log('aaa')
+            },
+            change_name(){
+                this.name = '22222'
+                this.age = 1000
             }
         }
     })

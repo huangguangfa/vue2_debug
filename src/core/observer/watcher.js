@@ -100,6 +100,7 @@ export default class Watcher {
    * Evaluate the getter, and re-collect dependencies.
    */
   get () {
+    console.log()
     //new Watcher的时候把 Watcher实例保存在 Dep类的target里、这里就形成了一个依赖关系
     pushTarget(this)
     let value
@@ -186,6 +187,8 @@ export default class Watcher {
    * Will be called by the scheduler.
    */
   run () {
+    console.log('this',this)
+    debugger
     if (this.active) {
       const value = this.get()
       if (
