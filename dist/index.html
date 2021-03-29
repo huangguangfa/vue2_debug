@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue_code</title>
+</head>
+<body>
+    <div id="app" style="color: red; font-size:20px">
+        hahah
+        {{ name }}
+        <span id="span">我今年：{{ age }} 岁</span>
+        <!-- <div>学习vue</div> -->
+        <!-- <component-test @aaa="aaa" :name="name"></component-test> -->
+
+        <!-- <div id="tets"></div> -->
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+
+<script>
+    // 混入
+    // let mixin = {
+    //     created: function () { console.log(1) }
+    // }
+    // 子组件
+    // Vue.component('component-test',{
+    //     name:'child-demo',
+    //     props:{
+    //         name:{
+    //             type:String,
+    //             default:'child—name'
+    //         }
+    //     },
+    //     data(){
+    //         return {
+    //             child_name:'测试',
+    //             child_data:Object.freeze({
+    //                 name:'张三111'
+    //             })
+    //         }
+    //     },
+    //     created(){
+    //         // setTimeout( () =>{
+    //         //     this.child_data.name = '李四';
+    //         //     console.log(this.child_data)
+    //         // },3000)
+    //         console.log('child-created')
+    //     },
+    //     methods:{
+    //         getChildName(){
+    //             console.log(this.child_name)
+    //         }
+    //     },
+    //     template:"<div> {{ child_name }} ---- {{ name }} --- {{ child_data.name }} </div>"
+    // })
+
+    // 实列
+    // const Profile = Vue.extend({
+    //     template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+    //     data: function () {
+    //         return {
+    //             firstName: 'aa',
+    //             lastName: 'bb',
+    //             alias: 'Heisenberg'
+    //         }
+    //     }
+    // })
+    // // 创建 Profile 实例，并挂载到一个元素上。
+    // new Profile().$mount('#tets');
+
+    const vm = new Vue({
+        // props:{
+        //     'is-login':{
+        //         typeof:Boolean,
+        //         default:false
+        //     }
+        // },
+        el:'#app',
+        name:'parant-demo',
+        created(){
+            console.log('created')
+            setTimeout( () =>{
+                this.name = '李四'
+            },5000)
+        },
+        // mixins:[mixin],
+        mounted(){
+            console.log('dom挂载上去了')
+        },
+        data(){
+            return{
+                name:'11111',
+                age:1,
+                obj:{
+                    name:'张三'
+                }
+            }
+        },
+        methods:{
+            aaa(){
+                console.log('aaa')
+            }
+        }
+    })
+    // vm.list.push({
+    //     name:'sqwds'
+    // })
+    // console.log(vm.list)
+</script>
