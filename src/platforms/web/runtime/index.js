@@ -31,7 +31,7 @@ extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 
 // 安装平台补丁功能 inBrowser 是否是浏览器 
-//vue既可以运行在浏览器也可以运行在服务端，所以这里对patch做了一个兼容性处理:
+//vue既可以运行在浏览器也可以运行在服务端，所以这里对patch做了一个兼容性处理
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 
 //公共方法$mount、模板编译 -> AST树生成 -> render函数 -> _c _v _s -> render函数 -> 虚拟节点 -> 设置path -> 打补丁到真实dom

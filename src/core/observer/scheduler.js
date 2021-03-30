@@ -31,6 +31,7 @@ function resetSchedulerState () {
   if (process.env.NODE_ENV !== 'production') {
     circular = {}
   }
+  //更新完后把状态初始化
   waiting = flushing = false
 }
 
@@ -103,7 +104,7 @@ function flushSchedulerQueue () {
     id = watcher.id
     //清空记录需要更新的watcher id
     has[id] = null
-    //执行watcher的run方法
+    //执行watcher的run方法、准备重新更新视图
     watcher.run()
     // in dev build, check and stop circular updates.
     if (process.env.NODE_ENV !== 'production' && has[id] != null) {
@@ -130,6 +131,7 @@ function flushSchedulerQueue () {
 
   // call component updated and activated hooks
   callActivatedHooks(activatedQueue)
+  // updated钩子触发
   callUpdatedHooks(updatedQueue)
 
   // devtool hook
@@ -173,17 +175,18 @@ function callActivatedHooks (queue) {
  * Jobs with duplicate IDs will be skipped unless it's
  * pushed when the queue is being flushed.
  */
-//  queue 队列
+// queue 队列
 export function queueWatcher (watcher: Watcher) {
   // console.log('修改的操作',watcher)
   const id = watcher.id
   if (has[id] == null) {
     has[id] = true
+    //保存需要更新的watcher、下一次执行
     if (!flushing) {
       queue.push(watcher)
     } else {
       // if already flushing, splice the watcher based on its id
-      // if already past its id, it will be run next immediately.
+      // if already past its id, it will be run next immediately
       let i = queue.length - 1
       while (i > index && queue[i].id > watcher.id) {
         i--

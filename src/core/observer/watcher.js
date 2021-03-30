@@ -90,7 +90,7 @@ export default class Watcher {
         )
       }
     }
-    //lazy 默认 fasle
+    //lazy 默认 fasle 
     this.value = this.lazy
       ? undefined
       : this.get()
@@ -99,14 +99,14 @@ export default class Watcher {
   /**
    * Evaluate the getter, and re-collect dependencies.
    */
+  //获取虚拟dom 执行页面更新操作
   get () {
-    console.log()
     //new Watcher的时候把 Watcher实例保存在 Dep类的target里、这里就形成了一个依赖关系
     pushTarget(this)
     let value
     const vm = this.vm
     try {
-      //执行渲染模板 --- updateComponent方法
+      //执行渲染模板方法 ---vm._update(vm._render())
       value = this.getter.call(vm, vm)
     } catch (e) {
       if (this.user) {
@@ -187,9 +187,8 @@ export default class Watcher {
    * Will be called by the scheduler.
    */
   run () {
-    console.log('this',this)
-    debugger
     if (this.active) {
+      //更新页面
       const value = this.get()
       if (
         value !== this.value ||
