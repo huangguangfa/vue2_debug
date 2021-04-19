@@ -547,7 +547,7 @@ export function createPatchFunction (backend) {
 
     let i
     const data = vnode.data
-    // vnode是组件的时候会有init, prepatch, insert , destroy四个钩子）。
+    // vnode是组件的时候会有init, prepatch, insert , destroy四个钩子）
     // init 实例化子组件
     // prepatch 更新子组件
     // insert 调用子组件的 ’mounted‘生命周期，或者当’keepAlive‘存在的时候触发组件的activated生命周期
@@ -574,7 +574,7 @@ export function createPatchFunction (backend) {
     if (isUndef(vnode.text)) {
       //旧的vnode和新的vnode是否存在子元素
       if (isDef(oldCh) && isDef(ch)) {
-        //如果旧的vnode和新的vnode不相同就调用’updateChildren‘函数更新
+        //如果旧的vnode和新的vnode不相同就调用’updateChildren‘函数更新、updateChildren比对开始
         if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
       } else if (isDef(ch)) {
         if (process.env.NODE_ENV !== 'production') {
@@ -621,7 +621,7 @@ export function createPatchFunction (backend) {
   // deep updates (#7063).
   const isRenderedModule = makeMap('attrs,class,staticClass,staticStyle,key')
 
-  // Note: this is a browser-only function so we can assume elms are DOM nodes.
+  // Note: this is a browser-only function so we can assume elms are DOM nodes
   function hydrate (elm, vnode, insertedVnodeQueue, inVPre) {
     let i
     const { tag, data, children } = vnode

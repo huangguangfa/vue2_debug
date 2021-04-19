@@ -63,7 +63,8 @@ Vue.prototype.$mount = function (
       if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
         mark('compile')
       }
-      //看看你干了什么事情 、template -> AST树  AST -> render函数 -> _c _v _s
+      //template -> AST树  AST -> render函数 -> _c _v _s
+      //导出的render函数就是根据el生成vnode方法、执行render方法就能得到vnode
       const { render, staticRenderFns } = compileToFunctions(template, {
         outputSourceRange: process.env.NODE_ENV !== 'production',
         shouldDecodeNewlines,

@@ -90,7 +90,7 @@ export function renderMixin (Vue: Class<Component>) {
       //彼此分开。 嵌套组件的渲染fns称为
       //修补父组件时。
       currentRenderingInstance = vm
-      //执行render方法、获取AST数
+      //执行render方法、获取vnode
       vnode = render.call(vm._renderProxy, vm.$createElement)
     } catch (e) {
       handleError(e, vm, `render`)
