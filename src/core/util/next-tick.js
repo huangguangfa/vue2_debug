@@ -32,33 +32,21 @@ function flushCallbacks () {
 // or even between bubbling of the same event (#6566).
 let timerFunc
 
-// The nextTick behavior leverages the microtask queue, which can be accessed
-// via either native Promise.then or MutationObserver.
-// MutationObserver has wider support, however it is seriously bugged in
-// UIWebView in iOS >= 9.3.3 when triggered in touch event handlers. It
-// completely stops working after triggering a few times... so, if native
-// Promise is available, we will use it:
-/* istanbul ignore next, $flow-disable-line */
+//优先判断是否存在Promise、利用微任务去执行清空回调
 if (typeof Promise !== 'undefined' && isNative(Promise)) {
   const p = Promise.resolve()
   timerFunc = () => {
     p.then(flushCallbacks)
-    // In problematic UIWebViews, Promise.then doesn't completely break, but
-    // it can get stuck in a weird state where callbacks are pushed into the
-    // microtask queue but the queue isn't being flushed, until the browser
-    // needs to do some other work, e.g. handle a timer. Therefore we can
-    // "force" the microtask queue to be flushed by adding an empty timer.
     if (isIOS) setTimeout(noop)
   }
   isUsingMicroTask = true
+
+  //没有promsie的情况、利用h5提供给我们dom变化后的回调去实现
 } else if (!isIE && typeof MutationObserver !== 'undefined' && (
   isNative(MutationObserver) ||
-  // PhantomJS and iOS 7.x
   MutationObserver.toString() === '[object MutationObserverConstructor]'
 )) {
-  // Use MutationObserver where native Promise is not available,
-  // e.g. PhantomJS, iOS7, Android 4.4
-  // (#6466 MutationObserver is unreliable in IE11)
+
   let counter = 1
   const observer = new MutationObserver(flushCallbacks)
   const textNode = document.createTextNode(String(counter))
@@ -70,15 +58,14 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
     textNode.data = String(counter)
   }
   isUsingMicroTask = true
+  //还没有就判断 setImmediate是否有、作者说setImmediate依然比setTimeout更好
+  //该方法用于分解长时间运行的操作，并在浏览器“完成其他操作“（后立即运行回调函数
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
-  // Fallback to setImmediate.
-  // Technically it leverages the (macro) task queue,
-  // but it is still a better choice than setTimeout.
   timerFunc = () => {
     setImmediate(flushCallbacks)
   }
+  // 最后才去用setTimeout
 } else {
-  // Fallback to setTimeout.
   timerFunc = () => {
     setTimeout(flushCallbacks, 0)
   }
