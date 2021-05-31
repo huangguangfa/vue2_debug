@@ -64,7 +64,7 @@ export default {
     this.cache = Object.create(null)
     this.keys = []
   },
-  // 删除所有的缓存
+  // 删除所有的缓存1111
   destroyed () {
     for (const key in this.cache) {
       pruneCacheEntry(this.cache, key, this.keys)
