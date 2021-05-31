@@ -66,9 +66,9 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
   }
   return map
 }
- 
 
-//你妈、八百多行、休想拦住我
+//你妈、八百多行、休想拦住我 createPatchFunction(patch) => createElm => insert => removeVnodes
+
 export function createPatchFunction (backend) {
   let i, j
   const cbs = {}

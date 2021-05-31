@@ -64,7 +64,7 @@ export default {
     this.cache = Object.create(null)
     this.keys = []
   },
-
+  // 删除所有的缓存
   destroyed () {
     for (const key in this.cache) {
       pruneCacheEntry(this.cache, key, this.keys)
@@ -79,28 +79,28 @@ export default {
       pruneCache(this, name => !matches(val, name))
     })
   },
-
+  //执行页面render
   render () {
     const slot = this.$slots.default
+    //获取kepp-alive组件下的第一个子组件vndoe
     const vnode: VNode = getFirstComponentChild(slot)
     const componentOptions: ?VNodeComponentOptions = vnode && vnode.componentOptions
     if (componentOptions) {
-      // check pattern
+      // 获取组件名称
       const name: ?string = getComponentName(componentOptions)
-      const { include, exclude } = this
+      const { include, exclude } = this;
+      //判断是否是需要缓存、不需要直接走这if
       if (
-        // not included
+        // 有include和没有获取到name值 或者 include是否包含name值
         (include && (!name || !matches(include, name))) ||
-        // excluded
+        // 是否是白名单、直接过滤
         (exclude && name && matches(exclude, name))
       ) {
         return vnode
       }
-
+      //需要缓存逻辑
       const { cache, keys } = this
       const key: ?string = vnode.key == null
-        // same constructor may get registered as different local components
-        // so cid alone is not enough (#3269)
         ? componentOptions.Ctor.cid + (componentOptions.tag ? `::${componentOptions.tag}` : '')
         : vnode.key
       if (cache[key]) {

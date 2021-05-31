@@ -23,7 +23,7 @@ let flushing = false
 let index = 0
 
 /**
- * Reset the scheduler's state.
+ * 初始化Scheduler
  */
 function resetSchedulerState () {
   index = queue.length = activatedChildren.length = 0
@@ -73,25 +73,12 @@ function flushSchedulerQueue () {
   currentFlushTimestamp = getNow()
   flushing = true
   let watcher, id
-
-  // Sort queue before flush.
-  // This ensures that:
-  // 1. Components are updated from parent to child. (because parent is always
-  //    created before the child)
-  // 2. A component's user watchers are run before its render watcher (because
-  //    user watchers are created before the render watcher)
-  // 3. If a component is destroyed during a parent component's watcher run,
-  //    its watchers can be skipped.
-  // 刷新前对队列进行排序。
+  // 那组件得id进行排序、使得父优先更新(父id < 子id）、保证刷新前对队列进行排序。
   //这样可以确保：
-  // 1.组件从父级更新为子级。 （因为父母总是
-  //在子级之前创建）
-  // 2.组件的用户监视程序在其呈现监视程序之前运行（因为
-  //用户观察者先于渲染观察者创建）
-  // 3.如果在父组件的观察者运行期间某个组件被破坏，
-  //可以跳过其观察者。
+  // 1.组件从父级更新为子级。 （因为父母总是 在子级之前创建）
+  // 2.组件的用户监视程序在其呈现监视程序之前运行（因为 用户观察者先于渲染观察者创建）
+  // 3.如果在父组件的观察者运行期间某个组件被破坏， 可以跳过其观察者。
   queue.sort((a, b) => a.id - b.id)
-
   // do not cache length because more watchers might be pushed
   // as we run existing watchers
   for (index = 0; index < queue.length; index++) {

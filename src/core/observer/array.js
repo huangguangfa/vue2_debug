@@ -2,13 +2,10 @@
  * not type checking this file because flow doesn't play well with
  * dynamically accessing methods on Array prototype
  */
-
 //数组的监听逻辑：给数组的__proto__ 属性添加创建好的Array.prototype对象、遍历会对数组长度改变的的方法key进行拦截监听、从而改变而触发更新节点
-
 import { def } from '../util/index'
 const arrayProto = Array.prototype
 export const arrayMethods = Object.create(arrayProto)
-
 const methodsToPatch = [
   'push',
   'pop',
