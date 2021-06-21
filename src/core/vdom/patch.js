@@ -507,7 +507,6 @@ export function createPatchFunction (backend) {
     index,
     removeOnly
   ) {
-    console.log('执行了几次')
     if (oldVnode === vnode) {
       return
     }
@@ -560,7 +559,7 @@ export function createPatchFunction (backend) {
     const ch = vnode.children
     // 调用各种更新函数。
     if (isDef(data) && isPatchable(vnode)) {
-      for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode) 
+      for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
       // updateAttrs // 更新attr属性
       // updateClass// 更新class属性
       // updateDOMListeners // 更新绑定事件属性
@@ -592,7 +591,7 @@ export function createPatchFunction (backend) {
          // 设置显示文本为空
         nodeOps.setTextContent(elm, '')
       }
-    
+
     } else if (oldVnode.text !== vnode.text) {
       //设置显示文本为最新的值
       nodeOps.setTextContent(elm, vnode.text)
@@ -736,7 +735,7 @@ export function createPatchFunction (backend) {
 
     let isInitialPatch = false
     const insertedVnodeQueue = []
-    
+
     if (isUndef(oldVnode)) {
       // empty mount (likely as component), create new root element
       isInitialPatch = true

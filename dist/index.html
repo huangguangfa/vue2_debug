@@ -7,73 +7,88 @@
 </head>
 <body>
     <div id="app">
-        <div @click="show = true"> keep-alive测试 </div>
-        <keep-alive include="test">
-            <test></test>
-            <demo></demo>
-        </keep-alive>
+        {{ showCom }}
+        <button @click="changeStatus">修改</button>
+        <!-- <test></test>
+        <demo></demo> -->
+    </div>
+    <div id="extend">
+
+    </div>
+    <div id="extendaa">
+
     </div>
 </body>
 </html>
 <script src="./vue.js"></script>
-
 <script>
     const test = {
         name:'test',
-        template:"<div @click='inputComponent'> {{ componentsName }} </div>",
+        template:"<div> {{ componentName }} </div>",
         data(){
           return {
-            componentsName:'测试组件'
+            componentName:'test测试组件'
           }
-        },
-        activated(){
-            console.log('test-activated')
-        },
-        created(){
-            // console.log('text_componentsName')
-        },
-        methods: {
-            inputComponent(){
-              console.log(this.componentsName)
+        }
+        
+    }
+
+    const demo = {
+        name:'demo',
+        template:"<div> {{ componentName }} </div>",
+        data(){
+            return {
+              componentName:'demo测试组件',
+
             }
         }
     }
-    const demo = {
-      name:'demo',
-      template:"<div @click='inputComponent'> {{ name }} </div>",
-      data(){
-        return {
-          name:'demo'
-        }
-      },
-      created(){
-        console.log('demo_componentsName')
-      },
-      methods: {
-        inputComponent(){
-          console.log(this.name)
-        }
-      }
-    }
+
+    // let plugin = {
+    //     install:function(Vue){
+    //         Vue.prototype.getplugin = function(){
+    //             console.log('my-plugin')
+    //         }
+    //     }
+    // }
+    // Vue.use(plugin)
+
+    // let extend_obj = Vue.extend({
+    //     template:"<div class='extend'>{{name}} <button @click='name = 111'>change</button></div>",
+    //     data(){
+    //         return {
+    //             name:'extend'
+    //         }
+    //     },
+    //     created(){
+    //         console.log('extend-created')
+    //     }
+    // })
+
+    // const ExtendFn = Vue.extend(extend_obj);
+    // let e = new ExtendFn().$mount("#extend");
+    
     const vm = new Vue({
         name:'root',
-        components:{
-          test,
-          demo
-        },
+        // components:{
+        //   test,
+        //   demo
+        // },
         el:'#app',
-        mounted(){
-
+        created(){
+            console.log('created')
         },
         data(){
             return{
-                show:false
+                show:false,
+                showCom:'test'
             }
         },
         methods:{
             changeStatus(){
-                this.show = true
+                this.showCom = 'demo'
             }
         }
     })
+    
 </script>

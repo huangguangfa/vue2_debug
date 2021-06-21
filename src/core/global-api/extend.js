@@ -8,23 +8,24 @@ export function initExtend (Vue: GlobalAPI) {
   /**
    * Each instance constructor, including Vue, has a unique
    * cid. This enables us to create wrapped "child
-   * constructors" for prototypal inheritance and cache them.
+   * constructors" for prototypal inheritance and cache them
    */
   Vue.cid = 0
   let cid = 1
 
   /**
-   * Class inheritance
+   * Class inheritance vue的extend方法入口
    */
   Vue.extend = function (extendOptions: Object): Function {
     extendOptions = extendOptions || {}
     const Super = this
     const SuperId = Super.cid
+    //做了缓存优化
     const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {})
     if (cachedCtors[SuperId]) {
       return cachedCtors[SuperId]
     }
-
+    
     const name = extendOptions.name || Super.options.name
     if (process.env.NODE_ENV !== 'production' && name) {
       validateComponentName(name)
@@ -52,12 +53,12 @@ export function initExtend (Vue: GlobalAPI) {
       initComputed(Sub)
     }
 
-    // allow further extension/mixin/plugin usage
+    // allow further extension/mixin/plugin usage (继承Vue的方法)
     Sub.extend = Super.extend
     Sub.mixin = Super.mixin
     Sub.use = Super.use
 
-    // create asset registers, so extended classes
+    // create asset registers, so extended classes(继承Vue的方法)
     // can have their private assets too.
     ASSET_TYPES.forEach(function (type) {
       Sub[type] = Super[type]

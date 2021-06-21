@@ -42,7 +42,6 @@ Vue.prototype.$mount = function (
   el = el && inBrowser ? query(el) : undefined
   return mountComponent(this, el, hydrating)
 }
-
 // devtools global hook
 /* istanbul ignore next */
 // inBrowser是否是浏览器
