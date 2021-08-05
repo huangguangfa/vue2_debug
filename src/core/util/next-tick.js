@@ -30,6 +30,7 @@ function flushCallbacks () {
 // where microtasks have too high a priority and fire in between supposedly
 // sequential events (e.g. #4521, #6690, which have workarounds)
 // or even between bubbling of the same event (#6566).
+
 let timerFunc
 
 //优先判断是否存在Promise、利用微任务去执行清空回调
@@ -72,6 +73,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
 }
 
 export function nextTick (cb?: Function, ctx?: Object) {
+  console.log('cb',cb)
   let _resolve
   callbacks.push(() => {
     if (cb) {

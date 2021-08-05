@@ -14,7 +14,7 @@ export const createCompiler = createCompilerCreator( function baseCompile (
 ): CompiledResult {
   //AST生成结果
   const ast = parse(template.trim(), options)
-  
+  // console.log(ast)
   if (options.optimize !== false) {
     optimize(ast, options)
   }
@@ -26,3 +26,4 @@ export const createCompiler = createCompilerCreator( function baseCompile (
     staticRenderFns: code.staticRenderFns
   }
 })
+

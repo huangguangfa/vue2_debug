@@ -21,6 +21,7 @@ Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
 ): Component {
+  console.log('entry-tuntime')
   el = el && query(el)
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {
@@ -30,7 +31,7 @@ Vue.prototype.$mount = function (
     return this
   }
   const options = this.$options
-  //解析模板/ el并转换为渲染功能  
+  //解析模板/ el并转换为渲染功能
   if (!options.render) {
     let template = options.template
     //是否是template形式
@@ -65,6 +66,9 @@ Vue.prototype.$mount = function (
       }
       //template -> AST树  AST -> render函数 -> _c _v _s
       //导出的render函数就是根据el生成vnode方法、执行render方法就能得到vnode
+
+      //vue编译比较复杂、第一步会通过一些配置文件进行初始化编译方法其中包括合并一些选项、比如comments、delimiters、然后会利用闭包维护一个cache对象、保存每次编译的结果、方便下次render返回结果、
+      //编译部分第一步parse，取字符串template内容和初始化好的配置对象
       const { render, staticRenderFns } = compileToFunctions(template, {
         outputSourceRange: process.env.NODE_ENV !== 'production',
         shouldDecodeNewlines,

@@ -19,6 +19,7 @@ function createFunction (code, errors) {
 }
 
 export function createCompileToFunctionFn (compile: Function): Function {
+  //利用闭包缓存compile结果
   const cache = Object.create(null)
   
   return function compileToFunctions (

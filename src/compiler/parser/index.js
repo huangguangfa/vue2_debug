@@ -110,7 +110,7 @@ export function parse (
       warn(msg, range)
     }
   }
-
+  //关闭元素
   function closeElement (element) {
     trimEndingWhitespace(element)
     if (!inVPre && !element.processed) {
@@ -170,11 +170,11 @@ export function parse (
       postTransforms[i](element, options)
     }
   }
-
+   // 删除el里面文本节点
   function trimEndingWhitespace (el) {
-    // remove trailing whitespace node
     if (!inPre) {
       let lastNode
+      //元素节点1 属性节点2  文本节点3....参考：https://www.w3school.com.cn/jsref/prop_node_nodetype.asp
       while (
         (lastNode = el.children[el.children.length - 1]) &&
         lastNode.type === 3 &&

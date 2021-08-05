@@ -58,6 +58,9 @@ export function parseHTML (html, options) {
   const canBeLeftOpenTag = options.canBeLeftOpenTag || no
   let index = 0
   let last, lastTag
+  //递归处理html模板、每次拿出一个< ... >标签 => <div> <span>{{name}}</span> </div> => 
+  // <span>{{name}}</span> </div> =>
+  // {{name}}</span> </div>
   while (html) {
     last = html
     // Make sure we're not in a plaintext content element like script/style
@@ -76,7 +79,6 @@ export function parseHTML (html, options) {
             continue
           }
         }
-
         // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
         if (conditionalComment.test(html)) {
           const conditionalEnd = html.indexOf(']>')

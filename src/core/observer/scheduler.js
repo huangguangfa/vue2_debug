@@ -70,6 +70,7 @@ if (inBrowser && !isIE) {
  * Flush both queues and run the watchers.
  */
 function flushSchedulerQueue () {
+  console.log('111111')
   currentFlushTimestamp = getNow()
   flushing = true
   let watcher, id
@@ -188,6 +189,7 @@ export function queueWatcher (watcher: Watcher) {
         flushSchedulerQueue()
         return
       }
+      // console.log('开始压到nextTick') [myFn, flushSchedulerQueue ]
       nextTick(flushSchedulerQueue)
     }
   }

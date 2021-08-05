@@ -32,6 +32,7 @@ Vue.prototype.$mount = function (
   el?: any,
   hydrating?: boolean
 ): Component {
+  console.log('runtime')
   return mountComponent(
     this,
     el && query(el, this.$document),

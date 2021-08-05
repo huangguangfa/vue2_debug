@@ -7,88 +7,36 @@
 </head>
 <body>
     <div id="app">
-        {{ showCom }}
-        <button @click="changeStatus">修改</button>
-        <!-- <test></test>
-        <demo></demo> -->
-    </div>
-    <div id="extend">
-
-    </div>
-    <div id="extendaa">
-
+        <div id="a" ref="a">
+            {{ age }}
+        </div>
+        <!-- <demo :name="names" :age="age"></demo> -->
     </div>
 </body>
 </html>
 <script src="./vue.js"></script>
 <script>
-    const test = {
-        name:'test',
-        template:"<div> {{ componentName }} </div>",
-        data(){
-          return {
-            componentName:'test测试组件'
-          }
-        }
-        
-    }
-
-    const demo = {
-        name:'demo',
-        template:"<div> {{ componentName }} </div>",
-        data(){
-            return {
-              componentName:'demo测试组件',
-
-            }
-        }
-    }
-
-    // let plugin = {
-    //     install:function(Vue){
-    //         Vue.prototype.getplugin = function(){
-    //             console.log('my-plugin')
-    //         }
+    // const demo = {
+    //     template:'<div>{{ name }}</div>',
+    //     props:{
+    //         name:String
     //     }
     // }
-    // Vue.use(plugin)
-
-    // let extend_obj = Vue.extend({
-    //     template:"<div class='extend'>{{name}} <button @click='name = 111'>change</button></div>",
-    //     data(){
-    //         return {
-    //             name:'extend'
-    //         }
-    //     },
-    //     created(){
-    //         console.log('extend-created')
-    //     }
-    // })
-
-    // const ExtendFn = Vue.extend(extend_obj);
-    // let e = new ExtendFn().$mount("#extend");
-    
     const vm = new Vue({
         name:'root',
-        // components:{
-        //   test,
-        //   demo
-        // },
         el:'#app',
-        created(){
-            console.log('created')
-        },
+        // components:{
+        //     demo
+        // },
         data(){
             return{
-                show:false,
-                showCom:'test'
+                names:'demo',
+                age:19
             }
         },
-        methods:{
-            changeStatus(){
-                this.showCom = 'demo'
-            }
+        mounted(){
+            
         }
     })
-    
+
 </script>

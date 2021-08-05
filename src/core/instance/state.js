@@ -360,7 +360,7 @@ export function stateMixin (Vue: Class<Component>) {
   //挂载手动设置响应式和删除响应式方法
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
-  
+
   Vue.prototype.$watch = function (
     expOrFn: string | Function,
     cb: any,
