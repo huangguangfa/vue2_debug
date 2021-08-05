@@ -211,6 +211,7 @@ export function parse (
     shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
     shouldKeepComment: options.comments,
     outputSourceRange: options.outputSourceRange,
+    // 解析到新的节点时调用，包括节点tagName, attributes等信息
     start (tag, attrs, unary, start, end) {
       // check namespace.
       // inherit parent ns if there is one
@@ -297,7 +298,7 @@ export function parse (
         closeElement(element)
       }
     },
-
+    // 节点解析结束时调用，包括节点tagName等信息
     end (tag, start, end) {
       const element = stack[stack.length - 1]
       // pop stack
@@ -308,7 +309,7 @@ export function parse (
       }
       closeElement(element)
     },
-
+    // 文本解析完成时调用，包括文本本身
     chars (text: string, start: number, end: number) {
       if (!currentParent) {
         if (process.env.NODE_ENV !== 'production') {

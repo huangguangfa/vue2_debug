@@ -67,8 +67,8 @@ Vue.prototype.$mount = function (
       //template -> AST树  AST -> render函数 -> _c _v _s
       //导出的render函数就是根据el生成vnode方法、执行render方法就能得到vnode
 
-      //vue编译比较复杂、第一步会通过一些配置文件进行初始化编译方法其中包括合并一些选项、比如comments、delimiters、然后会利用闭包维护一个cache对象、保存每次编译的结果、方便下次render返回结果、
-      //编译部分第一步parse，取字符串template内容和初始化好的配置对象
+      //vue编译比较复杂、第一步会通过一些配置文件进行初始化编译方法其中包括合并一些选项、比如comments、delimiters、然后会利用闭包维护一个cache对象、保存每次编译的结果、方便下次render返回结果、然后拿到这些选项配置对象去执行compile方法、方法里面还是做一些校验和合并其他选项比如directives..最后才开始核心部分调用baseCompile方法、baseCompile方法开始核心的第一步执行parse方法进行ast树的生成
+      //编译部分第一步parse，取字符串template内容和初始化好的配置对象、方法里面主要还是做一些公共操作方法的封装、比如删除节点方法、定义一些判断方法、设置parseHTML方法需要的方法和参数、
       const { render, staticRenderFns } = compileToFunctions(template, {
         outputSourceRange: process.env.NODE_ENV !== 'production',
         shouldDecodeNewlines,
