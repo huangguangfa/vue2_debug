@@ -21,7 +21,6 @@ Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
 ): Component {
-  console.log('entry-tuntime')
   el = el && query(el)
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {

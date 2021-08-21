@@ -201,7 +201,7 @@ function initComputed (vm: Component, computed: Object) {
     }
 
     if (!isSSR) {
-      // create internal watcher for the computed property.
+      // 为计算属性创建内部观察者
       watchers[key] = new Watcher(
         vm,
         getter || noop,
@@ -209,10 +209,9 @@ function initComputed (vm: Component, computed: Object) {
         computedWatcherOptions
       )
     }
-
-    // component-defined computed properties are already defined on the
-    // component prototype. We only need to define computed properties defined
-    // at instantiation here.
+    // 组件定义的计算属性已经在
+    // 组件原型。 我们只需要定义已定义的计算属性
+    // 在这里实例化
     if (!(key in vm)) {
       defineComputed(vm, key, userDef)
     } else if (process.env.NODE_ENV !== 'production') {

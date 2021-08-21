@@ -70,7 +70,6 @@ if (inBrowser && !isIE) {
  * Flush both queues and run the watchers.
  */
 function flushSchedulerQueue () {
-  console.log('111111')
   currentFlushTimestamp = getNow()
   flushing = true
   let watcher, id

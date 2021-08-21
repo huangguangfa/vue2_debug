@@ -67,7 +67,7 @@ export default class Watcher {
     this.cb = cb
     this.id = ++uid // uid for batching
     this.active = true
-    this.dirty = this.lazy // for lazy watchers
+    this.dirty = this.lazy // 对computed的依赖收集标记
     this.deps = []
     this.newDeps = []
     this.depIds = new Set()
@@ -90,15 +90,15 @@ export default class Watcher {
         )
       }
     }
-    //lazy 默认 fasle 
+    //lazy 默认组件newWatch时fasle、当初始化computed时候
     this.value = this.lazy
       ? undefined
       : this.get()
   }
 
   /**
-   * Evaluate the getter, and re-collect dependencies.
-   */
+  *  Evaluate the getter, and re-collect dependencies.
+  */
   //获取虚拟dom 执行页面更新操作
   get () {
     //new Watcher的时候把 Watcher实例保存在 Dep类的target里、这里就形成了一个依赖关系
@@ -107,6 +107,7 @@ export default class Watcher {
     const vm = this.vm
     try {
       //执行渲染模板方法 ---vm._update(vm._render())
+      //还有可能执行的是computed的方法 
       value = this.getter.call(vm, vm)
     } catch (e) {
       if (this.user) {
@@ -137,7 +138,7 @@ export default class Watcher {
     //判断是否保存收集依赖的id了
     if (!this.newDepIds.has(id)) {
       this.newDepIds.add(id)
-      this.newDeps.push(dep)
+      this.newDeps.push(dep)update
       if (!this.depIds.has(id)) {
         //添加依赖
         dep.addSub(this)
@@ -220,6 +221,7 @@ export default class Watcher {
    */
   evaluate () {
     this.value = this.get()
+    //只允许computedGetter调用一次？
     this.dirty = false
   }
 

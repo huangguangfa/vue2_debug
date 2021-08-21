@@ -8,34 +8,36 @@
 <body>
     <div id="app">
         <div id="a" ref="a">
-            {{ age }}
+             {{ text }}
         </div>
-        <!-- <demo :name="names" :age="age"></demo> -->
+        <button @click="update">修改</button>
     </div>
 </body>
 </html>
 <script src="./vue.js"></script>
 <script>
-    // const demo = {
-    //     template:'<div>{{ name }}</div>',
-    //     props:{
-    //         name:String
-    //     }
-    // }
     const vm = new Vue({
         name:'root',
         el:'#app',
-        // components:{
-        //     demo
-        // },
         data(){
             return{
-                names:'demo',
-                age:19
+                names:'张三',
+                age:19,
+                aaa:'111'
             }
         },
-        mounted(){
-            
+        computed:{
+            text(){
+                return `姓名：${this.names} -- 年龄${this.age}` 
+            }
+        },
+        created(){
+            console.log('获取',this.aaa)
+        },
+        methods:{
+            update(){
+                this.names = 'lisi'
+            }
         }
     })
 
