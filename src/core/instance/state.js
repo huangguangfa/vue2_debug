@@ -59,9 +59,9 @@ export function initState (vm: Component) {
   } else {
     observe(vm._data = {}, true /* asRootData */)
   }
-  //初始化实例computed
+  //初始化实例computed、通过执行computed内部方法触发data的get进行依赖收集
   if (opts.computed) initComputed(vm, opts.computed)
-  //为实例添加Watch
+  //为实例添加Watch、和进行初始化watch
   if (opts.watch && opts.watch !== nativeWatch) {
     initWatch(vm, opts.watch)
   }

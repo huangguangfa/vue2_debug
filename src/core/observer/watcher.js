@@ -75,10 +75,11 @@ export default class Watcher {
     this.expression = process.env.NODE_ENV !== 'production'
       ? expOrFn.toString()
       : ''
-    // parse expression for getter
+    // parse expression for getter 、$watch exporFn === watchKey
     if (typeof expOrFn === 'function') {
       this.getter = expOrFn
     } else {
+      //通过key解析生成变化后的通知方法
       this.getter = parsePath(expOrFn)
       if (!this.getter) {
         this.getter = noop
@@ -91,6 +92,7 @@ export default class Watcher {
       }
     }
     //lazy 默认组件newWatch时fasle、当初始化computed时候
+    console.log('this.lazy',this.lazy,cb)
     this.value = this.lazy
       ? undefined
       : this.get()
@@ -138,7 +140,7 @@ export default class Watcher {
     //判断是否保存收集依赖的id了
     if (!this.newDepIds.has(id)) {
       this.newDepIds.add(id)
-      this.newDeps.push(dep)update
+      this.newDeps.push(dep)
       if (!this.depIds.has(id)) {
         //添加依赖
         dep.addSub(this)

@@ -7,9 +7,9 @@
 </head>
 <body>
     <div id="app">
-        <div id="a" ref="a">
+        <!-- <div id="a" ref="a">
              {{ text }}
-        </div>
+        </div> -->
         <button @click="update">修改</button>
     </div>
 </body>
@@ -23,17 +23,29 @@
             return{
                 names:'张三',
                 age:19,
-                aaa:'111'
+                aaa:'111',
+                obj:{
+                    sex:0
+                }
             }
         },
-        computed:{
-            text(){
-                return `姓名：${this.names} -- 年龄${this.age}` 
-            }
+        watch:{
+            names(){
+                console.log('names更新了.....')
+            },
+            // 'obj.sex':function(a){
+            //     console.log('names更新了.....',a)
+            // }
         },
-        created(){
-            console.log('获取',this.aaa)
-        },
+        // computed:{
+        //     text(){
+        //         return `姓名：${this.names} -- 年龄${this.age}` 
+        //     },
+            
+        // },
+        // created(){
+        //     console.log('获取',this.aaa)
+        // },
         methods:{
             update(){
                 this.names = 'lisi'

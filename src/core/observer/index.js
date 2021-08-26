@@ -47,7 +47,6 @@ export class Observer {
     this.value = value
     this.dep = new Dep()
     this.vmCount = 0
-    console.log('value',value)
     def(value, '__ob__', this)
     //是否是数组 给数组设置 __proto__ 方便拦截数组的操作
     if (Array.isArray(value)) {
