@@ -73,7 +73,6 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
 }
 
 export function nextTick (cb?: Function, ctx?: Object) {
-  console.log('cb',cb)
   let _resolve
   callbacks.push(() => {
     if (cb) {

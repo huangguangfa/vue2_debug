@@ -88,7 +88,7 @@ export function renderMixin (Vue: Class<Component>) {
     try {
       //无需维护堆栈，因为所有渲染fns都被调用
       //彼此分开。 嵌套组件的渲染fns称为
-      //修补父组件时。
+      //修补父组件时
       currentRenderingInstance = vm
       //执行render方法、获取vnode
       vnode = render.call(vm._renderProxy, vm.$createElement)

@@ -191,7 +191,7 @@ export function mountComponent (
     }
   } else {
     updateComponent = () => {
-      //vm._render()虚拟dom节点更新到页面
+      //vm._render()虚拟dom节点更新到页面 
       vm._update(vm._render(), hydrating)
     }
   }

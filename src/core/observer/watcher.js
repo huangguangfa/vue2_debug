@@ -92,7 +92,6 @@ export default class Watcher {
       }
     }
     //lazy 默认组件newWatch时fasle、当初始化computed时候
-    console.log('this.lazy',this.lazy,cb)
     this.value = this.lazy
       ? undefined
       : this.get()
@@ -191,8 +190,8 @@ export default class Watcher {
    */
   run () {
     if (this.active) {
-      //更新页面
-      const value = this.get()
+      //更新页面 、这个get就是执行我们在new Watcher传入的 updateComponent
+      const value = this.get();
       if (
         value !== this.value ||
         // Deep watchers and watchers on Object/Arrays should fire even
