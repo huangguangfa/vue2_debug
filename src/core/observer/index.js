@@ -1,5 +1,4 @@
 /* @flow */
-
 import Dep from './dep'
 import VNode from '../vdom/vnode'
 import { arrayMethods } from './array'
@@ -28,7 +27,7 @@ export function toggleObserving (value: boolean) {
   shouldObserve = value
 }
 
-/**
+/** 
  * Observer class that is attached to each observed
  * object. Once attached, the observer converts the target
  * object's property keys into getter/setters that
@@ -62,12 +61,7 @@ export class Observer {
   }
 
   /**
-   * Walk through all properties and convert them into0
-   * getter/setters. This method should only be called when
-   * value type is Object.
-   *
-   * getter / setter。 仅在以下情况下才应调用此方法
-   * 值类型为对象。
+    * 遍历data每一项对齐进行挂载监听
    */
   walk (obj: Object) {
     const keys = Object.keys(obj)
@@ -166,6 +160,7 @@ export function defineReactive (
   if ((!getter || setter) && arguments.length === 2) {
     val = obj[key]
   }
+  //递归value做监听
   let childOb = !shallow && observe(val)
   Object.defineProperty(obj, key, {
     enumerable: true,

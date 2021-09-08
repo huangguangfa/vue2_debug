@@ -30,7 +30,7 @@ Vue.config.isUnknownElement = isUnknownElement
 extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 
-// 安装平台补丁功能 inBrowser 是否是浏览器 
+// 安装平台补丁功能 inBrowser 是否是浏览器
 //vue既可以运行在浏览器也可以运行在服务端，所以这里对patch做了一个兼容性处理
 Vue.prototype.__patch__ = inBrowser ? patch : noop
 

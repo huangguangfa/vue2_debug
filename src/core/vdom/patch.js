@@ -123,6 +123,7 @@ export function createPatchFunction (backend) {
 
   let creatingElmInVPre = 0
 
+  //创建元素
   function createElm (
     vnode,
     insertedVnodeQueue,
@@ -207,7 +208,7 @@ export function createPatchFunction (backend) {
       insert(parentElm, vnode.elm, refElm)
     }
   }
-
+  //创建组件
   function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     let i = vnode.data
     if (isDef(i)) {
@@ -229,7 +230,7 @@ export function createPatchFunction (backend) {
       }
     }
   }
-
+  //初始化组件
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert)
@@ -247,7 +248,7 @@ export function createPatchFunction (backend) {
       insertedVnodeQueue.push(vnode)
     }
   }
-
+  //激活组件
   function reactivateComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     let i
     // hack for #4339: a reactivated component with inner transition
@@ -269,7 +270,7 @@ export function createPatchFunction (backend) {
     // a reactivated keep-alive component doesn't insert itself
     insert(parentElm, vnode.elm, refElm)
   }
-
+  //插入节点
   function insert (parent, elm, ref) {
     if (isDef(parent)) {
       if (isDef(ref)) {
@@ -281,7 +282,7 @@ export function createPatchFunction (backend) {
       }
     }
   }
-
+  //创建子元素
   function createChildren (vnode, children, insertedVnodeQueue) {
     if (Array.isArray(children)) {
       if (process.env.NODE_ENV !== 'production') {
@@ -338,13 +339,18 @@ export function createPatchFunction (backend) {
       nodeOps.setStyleScope(vnode.elm, i)
     }
   }
-
+  // 在指定索引范围（startIdx —— endIdx）内添加节点
   function addVnodes (parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
     for (; startIdx <= endIdx; ++startIdx) {
       createElm(vnodes[startIdx], insertedVnodeQueue, parentElm, refElm, false, vnodes, startIdx)
     }
   }
-
+  /**
+   * 销毁节点：
+   *   执行组件的 destroy 钩子，即执行 $destroy 方法 
+   *   执行组件各个模块(style、class、directive 等）的 destroy 方法
+   *   如果 vnode 还存在子节点，则递归调用 invokeDestroyHook
+   */
   function invokeDestroyHook (vnode) {
     let i, j
     const data = vnode.data
@@ -358,7 +364,7 @@ export function createPatchFunction (backend) {
       }
     }
   }
-
+  // 在指定索引范围（startIdx —— endIdx）内删除节点
   function removeVnodes (vnodes, startIdx, endIdx) {
     for (; startIdx <= endIdx; ++startIdx) {
       const ch = vnodes[startIdx]
@@ -401,7 +407,14 @@ export function createPatchFunction (backend) {
       removeNode(vnode.elm)
     }
   }
-
+  /**
+   * diff 过程:
+   *   diff 优化：做了四种假设，假设新老节点开头结尾有相同节点的情况，一旦命中假设，就避免了一次循环，以提高执行效率
+   *             如果不幸没有命中假设，则执行遍历，从老节点中找到新开始节点
+   *             找到相同节点，则执行 patchVnode，然后将老节点移动到正确的位置
+   *   如果老节点先于新节点遍历结束，则剩余的新节点执行新增节点操作
+   *   如果新节点先于老节点遍历结束，则剩余的老节点执行删除操作，移除这些老节点
+   */
   function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
     let oldStartIdx = 0
     let newStartIdx = 0
@@ -498,7 +511,14 @@ export function createPatchFunction (backend) {
       if (isDef(c) && sameVnode(node, c)) return i
     }
   }
-
+  /**
+   * 更新节点
+   *   全量的属性更新
+   *   如果新老节点都有孩子，则递归执行 diff
+   *   如果新节点有孩子，老节点没孩子，则新增新节点的这些孩子节点
+   *   如果老节点有孩子，新节点没孩子，则删除老节点的这些孩子
+   *   更新文本节点
+   */
   function patchVnode (
     oldVnode,
     vnode,
