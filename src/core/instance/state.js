@@ -360,6 +360,10 @@ export function stateMixin (Vue: Class<Component>) {
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
 
+
+  //全局的$watch、组件使用watch后也是通过它进行注册的
+  //原理通过拿到监听的key去创建一个用户watcher、然后然后通过parsePath把key转为取vm实例data数据、这样的话我们就能触发get打上dep标记、等当前
+  //key的value变化后就会去通知我们的用户watcher
   Vue.prototype.$watch = function (
     expOrFn: string | Function,
     cb: any,

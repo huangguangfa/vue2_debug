@@ -135,6 +135,7 @@ export default class Watcher {
   //watcher里面通过pushTarget方法把自己这个实例对象赋值给Dep类的静态属性target
   //在数据getter的时候、会去收集依赖执行dep的depend事件、事件里面调用target.addDep、也就是下方事件
   addDep (dep: Dep) {
+    console.log('dep',dep)
     const id = dep.id
     //判断是否保存收集依赖的id了
     if (!this.newDepIds.has(id)) {
