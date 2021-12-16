@@ -69,7 +69,6 @@ export class Observer {
       defineReactive(obj, keys[i])
     }
   }
-
   /**
    * Observe a list of Array items. 观察数组项的列表
    */
