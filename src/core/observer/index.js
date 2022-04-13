@@ -53,7 +53,7 @@ export class Observer {
         protoAugment(value, arrayMethods)
       } else {
         copyAugment(value, arrayMethods, arrayKeys)
-      }
+      } 
       this.observeArray(value)
     } else {
       this.walk(value)

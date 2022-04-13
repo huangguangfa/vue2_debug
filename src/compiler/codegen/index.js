@@ -47,7 +47,7 @@ export function generate (
   const state = new CodegenState(options)
   const code = ast ? genElement(ast, state) : '_c("div")'
   return {
-    render: `console.log('111'); with(this){return ${code}}`,
+    render: `with(this){return ${code}}`,
     staticRenderFns: state.staticRenderFns
   }
 }
